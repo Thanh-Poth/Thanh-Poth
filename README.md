@@ -1,16 +1,18 @@
-## Hi there 👋
+# Hi, I'm Thanh-Son 👋
 
-<!--
-**Thanh-Poth/Thanh-Poth** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+I am a Data & AI engineering student at ESILV. I build data pipelines, Machine Learning models, and quantitative finance architectures.
 
-Here are some ideas to get you started:
+🎯 **Currently seeking an end-of-studies internship in Data Science / MLOps (Starting: April 12, 2027)**
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### 🛠 Technical Stack
+* **Data & ML:** Python, Scikit-Learn, LightGBM, Polars, MLflow
+* **Backend & DevOps:** FastAPI, PostgreSQL, Docker, C
+* **Quant Finance:** MetaTrader 5 (MQL5), ONNX integration
+
+### 🚀 What I'm working on
+* Developing ESG and financial risk scoring models.
+* Containerizing applications with Docker.
+* Backtesting automated trading algorithms.
+
+### 📫 Let's Connect
+[LinkedIn](Link_to_your_profile) | [Email](mailto:your_email)
