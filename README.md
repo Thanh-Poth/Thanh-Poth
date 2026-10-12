@@ -26,7 +26,6 @@
   <tr>
     <td width="60%" valign="top">
       I am an engineering student specializing in <b>Data and Artificial Intelligence</b> at <b>ESILV</b> in Paris. My core focus lies in transforming raw data into robust pipelines and bridging the gap between local model development and production environments.<br><br>
-      My background in quantitative finance has provided me with a strong foundation in processing complex, high-frequency time-series data at scale.<br><br>
       <b>Education:</b> ESILV (Data & AI Major). Previously attended Hanyang University (Seoul) and completed a Physics & Chemistry Preparatory Class.<br>
       <b>Availability:</b> Currently seeking a 6-month internship in <b>Data Engineering or Machine Learning Engineering</b> starting <b>April 2027</b>.<br>
       <b>Languages:</b> French (Native), English (Fluent), Vietnamese (Conversational).
