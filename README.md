@@ -58,16 +58,16 @@
 
 ### Featured Projects
 
-**Quant Trading Dashboard**
+**[Quant Trading Dashboard](https://github.com/Thanh-Poth/Dashboard)**
 > Full-stack application (FastAPI, React) orchestrating a complete quantitative research workflow, from market data collection to ML model optimization and backtesting.
 
-**Strategy Backtesting Pipeline**
+**[Strategy Backtesting Pipeline](https://github.com/Thanh-Poth/Strategy_Backtesting_Pipeline )**
 > Modular Python architecture for building risk-managed multi-asset portfolios, featuring causal walk-forward backtesting, risk-parity allocation, and VaR budgeting.
 
-**Local RAG Assistant**
+**[Local RAG Assistant](https://github.com/Thanh-Poth/RAG)**
 > Containerized Retrieval-Augmented Generation API built with FastAPI and ChromaDB. Runs locally on CPU with strict semantic similarity thresholds to eliminate LLM hallucinations.
 
-**Financial Data Structures & ML Methods**
+**[Financial Data Structures & ML Methods](https://github.com/Thanh-Poth/Tick-Level_Financial_Data_Processing)**
 > Implemented fractional differentiation and sample weighting tracked via MLflow, alongside activity-driven bars from tick data to improve the statistical properties of returns.
 
 ---
