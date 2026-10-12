@@ -94,13 +94,8 @@ When I am not configuring containers or optimizing pipelines, I maintain an acti
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=Thanh-Poth&show_icons=true&theme=radical&hide_border=true" width="48%" alt="GitHub Stats" />
-  <img src="https://streak-stats.demolab.com/?user=Thanh-Poth&theme=radical&hide_border=true" width="48%" alt="GitHub Streak" />
 </div>
-<br>
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Thanh-Poth&theme=radical&hide_border=true&area=true" width="100%" alt="Activity Graph" />
-</div>
-<br>
+
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Thanh-Poth&layout=donut&theme=radical&hide_border=true" alt="Top Languages" />
 </div>
