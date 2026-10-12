@@ -1,19 +1,11 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Thanh%20Son%20Potherat&fontSize=65&fontAlignY=35&animation=twinkling&desc=Data%20%26%20Machine%20Learning%20Engineer&descAlignY=55&descSize=20" alt="Header" />
+  
+  
   
   <br>
   
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=3B82F6&center=true&vCenter=true&width=600&lines=Building+Scalable+Data+Pipelines;Deploying+ML+Models+to+Production;Passionate+about+MLOps+%26+Backend;Engineering+Student+at+ESILV" alt="Typing SVG" />
-  </a>
-  
-  <br><br>
-  
   <a href="https://www.linkedin.com/in/thanh-son-potherat-b793b333a/">
     <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
-  &nbsp;
-  <img src="https://komarev.com/ghpvc/?username=Thanh-Poth&style=for-the-badge&color=8A2BE2&label=PROFILE+VIEWS" alt="Profile Views" />
 </div>
 
 <br>
@@ -43,7 +35,7 @@
 
 ---
 
-### Technical Arsenal
+### Technical Skills
 
 <div align="center">
   
@@ -70,14 +62,17 @@
 
 ### Featured Projects
 
-**Low-Latency ML Trading Architecture**
-> Designed and deployed an automated trading infrastructure. Built a pipeline to train models in Python and export them to ONNX format for seamless integration into MetaTrader 5 (MQL5), enabling real-time, low-latency model inference directly within the trading engine.
+**Quant Trading Dashboard**
+> Full-stack application (FastAPI, React) orchestrating a complete quantitative research workflow, from market data collection to ML model optimization and backtesting.
 
-**BookLoop Backend & Data Model**
-> Architected the backend structure and data models for an ESG (Environmental, Social, and Governance) scoring application. Focused on scalable data ingestion to efficiently calculate and serve financial risk metrics.
+**Strategy Backtesting Pipeline**
+> Modular Python architecture for building risk-managed multi-asset portfolios, featuring causal walk-forward backtesting, risk-parity allocation, and VaR budgeting[cite: 5].
 
-**VibeCheck AI Integrations**
-> Built the data ingestion logic for a smart wardrobe assistant. Developed pipelines to pull and process real-time contextual data from third-party Weather APIs and personal calendar schedules to feed the recommendation system.
+**Local RAG Assistant**
+> Containerized Retrieval-Augmented Generation API built with FastAPI and ChromaDB. Runs locally on CPU with strict semantic similarity thresholds to eliminate LLM hallucinations[cite: 3].
+
+**Financial Data Structures & ML Methods**
+> Implemented fractional differentiation and sample weighting tracked via MLflow[cite: 1], alongside activity-driven bars from tick data to improve the statistical properties of returns[cite: 4].
 
 **Tabular ML Optimization**
 > Competed in the Bobathon ESILV Kaggle hackathon. Focused on data preprocessing pipelines, feature engineering, and hyperparameter tuning for highly optimized LightGBM models.
@@ -99,7 +94,7 @@ When I am not configuring containers or optimizing pipelines, I maintain an acti
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=Thanh-Poth&show_icons=true&theme=radical&hide_border=true" width="48%" alt="GitHub Stats" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Thanh-Poth&theme=radical&hide_border=true" width="48%" alt="GitHub Streak" />
+  <img src="https://streak-stats.demolab.com/?user=Thanh-Poth&theme=radical&hide_border=true" width="48%" alt="GitHub Streak" />
 </div>
 <br>
 <div align="center">
