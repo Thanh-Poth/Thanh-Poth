@@ -9,7 +9,7 @@
   
   <br><br>
   
-  <img src="https://komarev.com/ghpvc/?username=Thanh-Poth&style=flat-square&color=8A2BE2&label=PROFILE+VIEWS" alt="Profile Views" />
+  ![Profile Views](https://komarev.com/ghpvc/?username=Thanh-Poth&style=flat-square&color=8A2BE2&label=PROFILE+VIEWS)
 </div>
 
 <br>
@@ -23,7 +23,7 @@
 <br>
 
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Thanh-Poth&theme=radical&no-frame=true&row=1&column=7&margin-w=15" alt="Trophies" />
+  ![Trophies](https://github-profile-trophy.vercel.app/?username=Thanh-Poth&theme=radical&no-frame=true&row=1&column=7&margin-w=15)
 </div>
 
 ---
@@ -39,7 +39,7 @@
       🗣️ <b>Languages:</b> French (Native) 🇫🇷, English (Fluent) 🇬🇧, Vietnamese (Conversational) 🇻🇳.
     </td>
     <td width="40%" valign="top" align="center">
-      <!-- L'image du serpent apparaîtra ici une fois l'Action GitHub configurée -->
+      <!-- NOTE: Cette image restera invisible tant que la GitHub Action "Snake" n'aura pas tourné avec succès -->
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/github-contribution-grid-snake-dark.svg">
         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/github-contribution-grid-snake.svg">
@@ -56,12 +56,12 @@
 <div align="center">
   
   **Languages & Scripts**<br>
-  <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=py,c,cpp,bash&theme=dark" /></a>
+  [![My Skills](https://skillicons.dev/icons?i=py,c,cpp,bash&theme=dark)](https://skillicons.dev)
   <img src="https://img.shields.io/badge/MQL5-000000?style=for-the-badge&logo=meta&logoColor=white" height="48" style="vertical-align: top;" />
   
   <br><br>
   **Data Science, Quant & AI**<br>
-  <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=sklearn,pytorch,tensorflow,pandas,numpy&theme=dark" /></a><br>
+  [![My Skills](https://skillicons.dev/icons?i=sklearn,pytorch,tensorflow,pandas,numpy&theme=dark)](https://skillicons.dev)<br>
   <img src="https://img.shields.io/badge/LightGBM-008000?style=flat-square&logo=l&logoColor=white" />
   <img src="https://img.shields.io/badge/Polars-0033A0?style=flat-square&logo=p&logoColor=white" />
   <img src="https://img.shields.io/badge/ONNX-005CED?style=flat-square&logo=onnx&logoColor=white" />
@@ -69,7 +69,7 @@
 
   <br><br>
   **Backend, DevOps & DB**<br>
-  <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=docker,postgres,fastapi,git,github,linux&theme=dark" /></a>
+  [![My Skills](https://skillicons.dev/icons?i=docker,postgres,fastapi,git,github,linux&theme=dark)](https://skillicons.dev)
   
 </div>
 
@@ -114,12 +114,12 @@ Beyond building models, I thrive on physical challenges and the great outdoors:
 ### 📊 GitHub Analytics
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Thanh-Poth&show_icons=true&theme=radical&hide_border=true&include_all_commits=true&count_private=true" width="48%" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Thanh-Poth&theme=radical&hide_border=true" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api?username=Thanh-Poth&show_icons=true&theme=radical&hide_border=true" width="48%" alt="GitHub Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Thanh-Poth&theme=radical&hide_border=true" width="48%" alt="GitHub Streak" />
 </div>
 <br>
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Thanh-Poth&theme=radical&hide_border=true&area=true" width="100%" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Thanh-Poth&theme=radical&hide_border=true&area=true" width="100%" alt="Activity Graph" />
 </div>
 <br>
 <div align="center">
