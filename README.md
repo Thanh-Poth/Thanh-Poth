@@ -1,10 +1,10 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Thanh%20Son%20Potherat&fontSize=65&fontAlignY=35&animation=twinkling&desc=Engineering%20Student%20|%20Quant%20|%20AI&descAlignY=55&descSize=20" alt="Header" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Thanh%20Son%20Potherat&fontSize=65&fontAlignY=35&animation=twinkling&desc=Data%20%26%20Machine%20Learning%20Engineer&descAlignY=55&descSize=20" alt="Header" />
   
   <br>
   
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=3B82F6&center=true&vCenter=true&width=600&lines=Data+Science+%26+AI+Student+at+ESILV;Passionate+about+Quantitative+Finance;Building+MLOps+%26+Trading+Pipelines;Exploring+South+Korea+and+Japan+%E2%9C%88%EF%B8%8F" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=3B82F6&center=true&vCenter=true&width=600&lines=Building+Scalable+Data+Pipelines;Deploying+ML+Models+to+Production;Passionate+about+MLOps+%26+Backend;Engineering+Student+at+ESILV" alt="Typing SVG" />
   </a>
   
   <br><br>
@@ -28,18 +28,19 @@
 
 ---
 
-### 👨‍💻 About Me & My Journey
+### 👨‍💻 About Me & My Engineering Journey
 
 <table align="center">
   <tr>
     <td width="60%" valign="top">
-      Hello! I'm a 21-year-old engineering student specializing in <b>Data & Artificial Intelligence</b> at <b>ESILV</b> in Paris. I bridge the gap between <b>Machine Learning</b> and <b>Quantitative Finance</b>, with a strong emphasis on automation and software engineering.<br><br>
+      Hello! I'm a 21-year-old engineering student specializing in <b>Data & Artificial Intelligence</b> at <b>ESILV</b> in Paris. I specialize in turning raw data into robust pipelines and bridging the gap between Jupyter notebooks and production environments.<br><br>
+      My background in quantitative finance gave me a strong foundation in handling complex, high-frequency time-series data at scale.<br><br>
       🎓 <b>Education:</b> ESILV (Data & AI). Ex-Hanyang University (Seoul) & PC Prep Class.<br>
-      💼 <b>Open to work:</b> Seeking a 6-month internship in <b>Data Science, Quant, or MLOps</b> starting <b>April 12, 2027</b>.<br>
-      🗣️ <b>Languages:</b> French (Native) 🇫🇷, English (Fluent) 🇬🇧, Vietnamese (Conversational) 🇻🇳.
+      💼 <b>Open to work:</b> Seeking a 6-month internship in <b>Data Engineering or ML Engineering</b> starting <b>April 2027</b>.<br>
+      🗣️ <b>Languages:</b> French (Native), English (Fluent), Vietnamese (Conversational).
     </td>
     <td width="40%" valign="top" align="center">
-      <!-- NOTE: Cette image restera invisible tant que la GitHub Action "Snake" n'aura pas tourné avec succès -->
+      <!-- NOTE: Le serpent s'affichera une fois la GitHub Action configurée -->
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/github-contribution-grid-snake-dark.svg">
         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/github-contribution-grid-snake.svg">
@@ -51,50 +52,51 @@
 
 ---
 
-### 🧠 Technical Arsenal
+### 🛠️ Engineering Arsenal
 
 <div align="center">
   
-  **Languages & Scripts**<br>
-  [![My Skills](https://skillicons.dev/icons?i=py,c,cpp,bash&theme=dark)](https://skillicons.dev)
-  <img src="https://img.shields.io/badge/MQL5-000000?style=for-the-badge&logo=meta&logoColor=white" height="48" style="vertical-align: top;" />
-  
-  <br><br>
-  **Data Science, Quant & AI**<br>
-  [![My Skills](https://skillicons.dev/icons?i=sklearn,pytorch,tensorflow,pandas,numpy&theme=dark)](https://skillicons.dev)<br>
-  <img src="https://img.shields.io/badge/LightGBM-008000?style=flat-square&logo=l&logoColor=white" />
+  **Data Engineering & Processing**<br>
+  [![My Skills](https://skillicons.dev/icons?i=postgres,py,cpp,bash&theme=dark)](https://skillicons.dev)<br>
   <img src="https://img.shields.io/badge/Polars-0033A0?style=flat-square&logo=p&logoColor=white" />
-  <img src="https://img.shields.io/badge/ONNX-005CED?style=flat-square&logo=onnx&logoColor=white" />
-  <img src="https://img.shields.io/badge/MetaTrader_5-008000?style=flat-square&logo=metatrader&logoColor=white" />
-
-  <br><br>
-  **Backend, DevOps & DB**<br>
-  [![My Skills](https://skillicons.dev/icons?i=docker,postgres,fastapi,git,github,linux&theme=dark)](https://skillicons.dev)
+  <img src="https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white" />
+  <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white" />
   
+  <br><br>
+  **MLOps, Backend & Deployment**<br>
+  [![My Skills](https://skillicons.dev/icons?i=docker,fastapi,git,github,linux&theme=dark)](https://skillicons.dev)<br>
+  <img src="https://img.shields.io/badge/MLflow-0194E2?style=flat-square&logo=mlflow&logoColor=white" />
+  <img src="https://img.shields.io/badge/ONNX-005CED?style=flat-square&logo=onnx&logoColor=white" />
+  
+  <br><br>
+  **Machine Learning Modeling**<br>
+  [![My Skills](https://skillicons.dev/icons?i=sklearn,pytorch,tensorflow&theme=dark)](https://skillicons.dev)<br>
+  <img src="https://img.shields.io/badge/LightGBM-008000?style=flat-square&logo=l&logoColor=white" />
+
 </div>
 
 ---
 
-### 🔭 What I'm Working On
+### 🏗️ Featured Engineering Projects
 
 <details>
-  <summary><b>🤖 Algorithmic Trading Architecture</b> <i>(Click to expand)</i></summary>
-  <blockquote>Building automated trading execution models using <b>MetaTrader 5 (MT5)</b> and MQL5 Expert Advisors. I am currently bridging the gap between standard technical analysis and ML by integrating <b>ONNX</b> machine learning models directly into trading environments for real-time inference.</blockquote>
+  <summary><b>⚙️ Low-Latency ML Trading Architecture</b> <i>(Click to expand)</i></summary>
+  <blockquote>Designed and deployed an automated trading infrastructure. Built a pipeline to train models in Python and export them to <b>ONNX</b> format for seamless integration into <b>MetaTrader 5 (MQL5)</b>, enabling real-time, low-latency model inference directly within the trading engine.</blockquote>
 </details>
 
 <details>
-  <summary><b>🌱 BookLoop</b> <i>(Click to expand)</i></summary>
-  <blockquote>Architected an ESG (Environmental, Social, and Governance) and financial risk scoring application concept, aimed at promoting ethical finance and sustainable investment transparency.</blockquote>
+  <summary><b>🌱 BookLoop Backend & Data Model</b> <i>(Click to expand)</i></summary>
+  <blockquote>Architected the backend structure and data models for an ESG (Environmental, Social, and Governance) scoring application. Focused on scalable data ingestion to calculate and serve financial risk metrics efficiently.</blockquote>
 </details>
 
 <details>
-  <summary><b>👔 VibeCheck AI</b> <i>(Click to expand)</i></summary>
-  <blockquote>Conceptualized a smart wardrobe assistant that pulls context from weather APIs and personal calendars to generate optimal, personalized daily outfit recommendations.</blockquote>
+  <summary><b>🔌 VibeCheck AI Integrations</b> <i>(Click to expand)</i></summary>
+  <blockquote>Built the data ingestion logic for a smart wardrobe assistant. Developed pipelines to pull and process real-time contextual data from third-party Weather APIs and personal calendar schedules to feed the recommendation system.</blockquote>
 </details>
 
 <details>
-  <summary><b>🏆 Hackathons & Competitions</b> <i>(Click to expand)</i></summary>
-  <blockquote>Participated in the Bobathon ESILV Kaggle hackathon (by Probabl.), building highly optimized tabular machine learning models utilizing LightGBM and scikit-learn.</blockquote>
+  <summary><b>🚀 Tabular ML Optimization (Hackathon)</b> <i>(Click to expand)</i></summary>
+  <blockquote>Competed in the Bobathon ESILV Kaggle hackathon (by Probabl.). Focused on data preprocessing pipelines, feature engineering, and hyperparameter tuning for highly optimized <b>LightGBM</b> models.</blockquote>
 </details>
 
 ---
@@ -103,10 +105,10 @@
 
 > *"A healthy mind in a healthy body."*
 
-Beyond building models, I thrive on physical challenges and the great outdoors:
+When I'm not configuring Docker containers or optimizing pipelines, I thrive on physical challenges:
 - 🏸 **Badminton:** Competitor in D5 interclub (FFBaD P10 ranking).
-- 🧗‍♂️ **Alpinism & Climbing:** Bouldering, lead climbing, and scaling crags. Hiked the peaks of **Bukhansan** and **Seoraksan** in Korea.
-- 🚴‍♂️ **Endurance:** Road cycling (power metrics obsession) & long-distance running.
+- 🧗‍♂️ **Alpinism & Climbing:** Bouldering, lead climbing. Hiked the peaks of **Bukhansan** and **Seoraksan** in Korea.
+- 🚴‍♂️ **Endurance:** Road cycling & long-distance running.
 - 🎨 **Arts:** Perspective drawing and watercolor painting.
 
 ---
