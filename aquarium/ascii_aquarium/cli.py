@@ -5,7 +5,7 @@ import argparse
 import os
 
 from . import github
-from .render import render
+from .render import render, render_page
 from .scene import Config, build
 
 
@@ -14,6 +14,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--config", default="aquarium.toml", help="TOML config file")
     p.add_argument("--user", help="GitHub user (overrides the config)")
     p.add_argument("--out", default="dist/aquarium.svg", help="output SVG path")
+    p.add_argument("--html", help="also write the interactive full-screen page (GitHub Pages)")
     p.add_argument("--from-json", help="render from a saved repo dump instead of the API")
     p.add_argument("--dump-json", help="also save the fetched repos to this JSON file")
     args = p.parse_args(argv)
@@ -34,8 +35,13 @@ def main(argv: list[str] | None = None) -> int:
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:
         f.write(render(fish, cfg))
+    if args.html:
+        os.makedirs(os.path.dirname(os.path.abspath(args.html)), exist_ok=True)
+        with open(args.html, "w", encoding="utf-8") as f:
+            f.write(render_page(fish, cfg))
+        print(f"wrote {args.html}")
     for fi in fish:
         print(f"{fi.repo.name:42} {fi.species:10} {fi.mask:10} {len(fi.frames[0][0]):>3} cols "
               f"{cfg.size_bytes(fi.repo):>9} B  {fi.repo.primary_language}")
-    print(f"wrote {args.out} ({len(fish)} fish)")
+    print(f"wrote {args.out} ({len(fish)} animals)")
     return 0

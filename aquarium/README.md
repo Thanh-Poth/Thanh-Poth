@@ -5,9 +5,8 @@ Turns a GitHub profile into an **animated ASCII ocean seen from above** (a singl
 | Property | Comes from |
 |---|---|
 | **Species** | the repo's languages: combination rules first, then the main language |
-| **Colour bands** | the language mix, each band sized by that language's share of the code |
 | **Size** | the bytes of code (sprite length grows with the log of the size) |
-| **Swimming** | frame-by-frame ASCII: rays flap their wings, sharks sway their tails, turtles paddle |
+| **Swimming** | 12 cross-faded ASCII frames per cycle: rays flap their wings, sharks sway their tails, turtles paddle |
 | **Path, direction, speed** | a hash of the repo name, so the scene stays stable between runs |
 
 The library itself only needs the Python 3.11+ standard library.
@@ -38,7 +37,7 @@ To use your own drawings: replace the image, update `SHAPES` in the tool (positi
 ## Usage
 
 ```bash
-python -m ascii_aquarium --config aquarium.toml --out dist/aquarium.svg
+python -m ascii_aquarium --config aquarium.toml --out dist/aquarium.svg --html dist/index.html
 python -m ascii_aquarium --user octocat --out ocean.svg             # no config file
 python -m ascii_aquarium --dump-json repos.json                     # save the API data
 python -m ascii_aquarium --from-json repos.json --out ocean.svg     # render offline
@@ -48,9 +47,12 @@ Set `GITHUB_TOKEN` to avoid the API rate limit (60 requests per hour without a t
 
 All the options are in [aquarium.toml](aquarium.toml): excluded repos, number of animals, sprite sizes, frames per cycle, language weights, species overrides, combination rules and highlighted repos.
 
-## How it animates on GitHub
+## Two outputs
 
-GitHub removes CSS and JavaScript from README files, but an SVG shown through `<img>` keeps its own `<style>` block. With `prefers-reduced-motion`, everything stops and each animal stays still on its first frame.
+- `--out aquarium.svg`: the README image. GitHub removes CSS and JavaScript from README files, but an SVG shown through `<img>` keeps its own `<style>` block, so it animates. Images are not interactive on GitHub, so it shows no text; its edges fade out so it blends into the page.
+- `--html index.html`: a full-screen page (for GitHub Pages) with the ocean as a real background and the `page_html` card from the config on top. Hovering an animal pauses it and shows the project name; clicking opens the repository.
+
+All animals share one colour (`fish_color`). Depth comes from blurred shadows on the sea floor, drifting light patches, plankton and distant schools of tiny fish. With `prefers-reduced-motion`, everything stops on the first frame.
 
 ## Tests
 

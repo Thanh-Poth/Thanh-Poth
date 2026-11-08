@@ -2,12 +2,12 @@ import unittest
 import xml.etree.ElementTree as ET
 
 from ascii_aquarium import Config, Repo, build, render
-from ascii_aquarium.scene import stripes
+from ascii_aquarium.render import render_page
 from ascii_aquarium.species import SPECIES, mirror
 from ascii_aquarium.sprite import MOTIONS, frames, masks
 
 REPOS = [
-    Repo("big-ts", {"TypeScript": 300_000, "CSS": 10_000}),
+    Repo("big-ts", {"TypeScript": 300_000, "CSS": 10_000}, url="https://github.com/me/big-ts"),
     Repo("api", {"Python": 50_000, "Dockerfile": 500}),
     Repo("fullstack", {"Python": 50_000, "JavaScript": 40_000}),
     Repo("pipeline", {"Python": 30_000}),
@@ -69,11 +69,6 @@ class SceneTest(unittest.TestCase):
         self.assertEqual(self.cfg.cols_for(10**9), self.cfg.max_cols)
         self.assertEqual(self.cfg.size_bytes(REPOS[4]), 100_000)  # notebooks weighted x0.25
 
-    def test_stripes_cover_the_body(self):
-        bands = stripes({"A": 3, "B": 1})
-        self.assertAlmostEqual(bands[0][1], 0.75)
-        self.assertAlmostEqual(bands[-1][1], 1.0)
-
     def test_deterministic(self):
         again = {f.repo.name: f for f in build(REPOS, self.cfg)}
         for name, f in self.fish.items():
@@ -90,7 +85,7 @@ class SceneTest(unittest.TestCase):
 
 class RenderTest(unittest.TestCase):
     def test_valid_svg_with_frames(self):
-        cfg = Config(user="me", highlight=["api"])
+        cfg = Config(user="me")
         fish = build(REPOS, cfg)
         svg = render(fish, cfg)
         root = ET.fromstring(svg)
@@ -98,8 +93,22 @@ class RenderTest(unittest.TestCase):
         self.assertEqual(len(root.findall(f".//{ns}g[@class='f']")), len(fish))
         frame_groups = [g for g in root.iter(f"{ns}g") if g.get("class", "").startswith("fr")]
         self.assertEqual(len(frame_groups), len(fish) * cfg.frames)
-        self.assertIn("★ api", svg)
+        self.assertIn('href="https://github.com/me/big-ts"', svg)  # click -> repo
+        self.assertIn(">big-ts</text>", svg)                       # hover label
         self.assertNotIn("<script", svg)
+
+    def test_one_colour_for_every_animal(self):
+        cfg = Config(user="me", fish_color="#123456")
+        svg = render(build(REPOS, cfg), cfg)
+        self.assertIn(".body{fill:#123456}", svg)
+        self.assertNotIn("linearGradient id=\"g", svg)
+
+    def test_page_has_presentation_over_the_ocean(self):
+        cfg = Config(user="me", page_html="<h1>Hello</h1>")
+        html = render_page(build(REPOS, cfg), cfg)
+        self.assertIn('<div id="ocean"><svg', html)
+        self.assertIn("<h1>Hello</h1>", html)
+        self.assertIn('preserveAspectRatio="xMidYMid slice"', html)
 
 
 if __name__ == "__main__":

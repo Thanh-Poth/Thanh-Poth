@@ -7,15 +7,14 @@ import tomllib
 from dataclasses import dataclass, field
 
 from .github import Repo
-from .palette import language_color
 from .species import (DEFAULT_COMBOS, DEFAULT_LANGUAGE_SPECIES, FALLBACK_SPECIES, SPECIES,
                       Species, mirror)
 from .sprite import frames as make_frames
 
 CHAR_W = 0.6     # monospace glyph width, in em
 LINE_H = 1.12    # line height, in em
-TOP_MARGIN = 40  # room for the title bar
-BOTTOM_MARGIN = 22
+TOP_MARGIN = 10
+BOTTOM_MARGIN = 10
 
 
 @dataclass
@@ -27,18 +26,19 @@ class Config:
     max_fish: int = 18
     width: int = 1000
     height: int = 560
-    font_size: float = 8.0       # px; sprites are drawn with this many pixels per character
-    min_cols: int = 12           # sprite length (characters) of the smallest repo...
-    max_cols: int = 38           # ...and of the largest
-    frames: int = 8              # animation frames per swim cycle
+    font_size: float = 6.0       # px per character: smaller = finer drawings
+    min_cols: int = 22           # sprite length (characters) of the smallest repo...
+    max_cols: int = 58           # ...and of the largest
+    frames: int = 12             # animation frames per swim cycle (cross-faded)
+    fish_color: str = "#cfdbe6"  # one colour for every animal
     species: dict[str, str] = field(default_factory=dict)  # language -> species overrides
     # Bytes of these languages count less for size (notebooks embed outputs/images).
     size_weights: dict[str, float] = field(default_factory=lambda: {"Jupyter Notebook": 0.25})
     combos: list[dict] | None = None  # None -> DEFAULT_COMBOS; [] disables combination rules
-    title: str = ""
-    show_labels: bool = True
-    highlight: list[str] = field(default_factory=list)  # repos with a starred, brighter label
     seed: str = "aquarium"
+    # Interactive page (GitHub Pages): presentation shown over the ocean.
+    page_title: str = ""
+    page_html: str = ""          # HTML fragment placed over the background
 
     @classmethod
     def load(cls, path: str) -> "Config":
@@ -78,7 +78,6 @@ class Fish:
     facing_right: bool
     frames: list[list[str]]
     font_size: float
-    stripes: list[tuple[float, float, str]]  # (start offset, end offset, colour), head first
     y0: float = 0.0           # lane at the entry side
     y1: float = 0.0           # lane at the exit side (slightly diagonal crossing)
     angle: float = 0.0        # degrees, matches the diagonal
@@ -100,22 +99,6 @@ def rand(seed: str, *parts: object) -> float:
     """Deterministic float in [0, 1) so the tank looks the same between runs."""
     h = hashlib.sha256("|".join(map(str, (seed, *parts))).encode()).digest()
     return int.from_bytes(h[:8], "big") / 2**64
-
-
-def stripes(languages: dict[str, int], max_colors: int = 4) -> list[tuple[float, float, str]]:
-    """Colour bands proportional to each language's share of the code."""
-    total = sum(languages.values()) or 1
-    ranked = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
-    head, tail = ranked[:max_colors], ranked[max_colors:]
-    if tail and head:
-        name, n = head[-1]
-        head[-1] = (name, n + sum(b for _, b in tail))
-    bands, pos = [], 0.0
-    for name, n in head:
-        share = n / total
-        bands.append((pos, pos + share, language_color(name)))
-        pos += share
-    return bands or [(0.0, 1.0, language_color(""))]
 
 
 def select(repos: list[Repo], cfg: Config) -> list[Repo]:
@@ -142,13 +125,13 @@ def build(repos: list[Repo], cfg: Config) -> list[Fish]:
         if not right:
             fr = [mirror(f) for f in fr]
         fish.append(Fish(repo=r, species=name, spec=spec, mask=mask, facing_right=right,
-                         frames=fr, font_size=cfg.font_size, stripes=stripes(r.languages)))
+                         frames=fr, font_size=cfg.font_size))
     _layout(fish, cfg)
     return fish
 
 
 def _layout(fish: list[Fish], cfg: Config) -> None:
-    label = 12 if cfg.show_labels else 0
+    label = 0
     top, bottom = TOP_MARGIN, cfg.height - BOTTOM_MARGIN
     # Lanes in a deterministic shuffled order so big animals are not stacked together.
     order = sorted(fish, key=lambda f: rand(cfg.seed, f.repo.name, "lane"))
@@ -173,5 +156,5 @@ def _layout(fish: list[Fish], cfg: Config) -> None:
         f.bob_duration = round(3 + 3 * rand(cfg.seed, f.repo.name, "bob"), 2)
 
 
-__all__ = ["Config", "Fish", "build", "select", "stripes", "rand",
+__all__ = ["Config", "Fish", "build", "select", "rand",
            "CHAR_W", "LINE_H", "TOP_MARGIN", "BOTTOM_MARGIN"]

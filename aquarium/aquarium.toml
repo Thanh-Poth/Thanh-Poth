@@ -12,14 +12,23 @@ width = 1000
 height = 560
 
 # Sprite length in characters, from the smallest to the largest repo (log scale).
-font_size = 9
-min_cols = 12
-max_cols = 38
-frames = 8              # animation frames per swim cycle
-
-show_labels = true
-highlight = ["Mushroom_Finder", "Tick-Level_Financial_Data_Processing", "RAG"]   # featured in the README
+font_size = 6           # px per character: smaller = finer drawings
+min_cols = 22
+max_cols = 58
+frames = 12             # animation frames per swim cycle (cross-faded)
+fish_color = "#cfdbe6"  # one colour for every animal
 seed = "aquarium"       # change it to reshuffle lanes and directions
+
+# Interactive page (GitHub Pages): the ocean is the background, this card sits on top.
+page_title = "Thanh Son Potherat"
+page_html = """
+<h1>Thanh Son Potherat</h1>
+<p>Engineering student specializing in <b>Data and Artificial Intelligence</b> at <b>ESILV</b> (Paris).
+I turn raw data into robust pipelines and bridge the gap between local model development and production.</p>
+<p><b>Looking for</b> a 6-month <b>Data Engineering / ML Engineering</b> internship from <b>April 2027</b>.</p>
+<p>Hover an animal to see the project, click it to open the repository.</p>
+<p><a href="https://github.com/Thanh-Poth">GitHub</a> · <a href="https://www.linkedin.com/in/thanh-son-potherat-b793b333a/">LinkedIn</a></p>
+"""
 
 # Bytes of a language count less for size (notebooks embed outputs and images).
 [size_weights]
@@ -34,7 +43,3 @@ seed = "aquarium"       # change it to reshuffle lanes and directions
 # all = ["Python", "JavaScript|TypeScript"]   # full-stack -> hammerhead
 # species = "hammerhead"
 # min_share = 0.10
-# [[combos]]
-# all = ["Python", "Dockerfile"]              # containerised -> hammerhead
-# species = "hammerhead"
-# min_share = 0.0

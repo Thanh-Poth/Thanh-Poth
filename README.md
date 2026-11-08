@@ -1,9 +1,5 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/aquarium.svg" width="100%" alt="Animated ASCII ocean seen from above: each animal is one of my repositories" />
-
-<sub>Each animal is one of my repositories: its <b>species</b> comes from the languages used, its <b>colours</b> from the language mix, its <b>size</b> from the amount of code. Regenerated daily by a <a href="aquarium/">small Python library</a> I wrote for this.</sub>
-
 ## Thanh Son Potherat
 
 **Data & AI engineering student @ ESILV Paris** · looking for a **6-month Data Engineering / ML Engineering internship from April 2027**
@@ -14,27 +10,15 @@
 
 </div>
 
----
-
 ### About Me & My Engineering Journey
 
-<table align="center">
-  <tr>
-    <td width="60%" valign="top">
-      I am an engineering student specializing in <b>Data and Artificial Intelligence</b> at <b>ESILV</b> in Paris. My core focus lies in transforming raw data into robust pipelines and bridging the gap between local model development and production environments.<br><br>
-      <b>Education:</b> ESILV (Data & AI Major). Previously attended Hanyang University (Seoul) and completed a Physics & Chemistry Preparatory Class.<br>
-      <b>Availability:</b> Currently seeking a 6-month internship in <b>Data Engineering or Machine Learning Engineering</b> starting <b>April 2027</b>.<br>
-      <b>Languages:</b> French (Native), English.
-    </td>
-    <td width="40%" valign="top" align="center">
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/github-contribution-grid-snake-dark.svg">
-        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/github-contribution-grid-snake.svg">
-        <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/github-contribution-grid-snake.svg" width="100%">
-      </picture>
-    </td>
-  </tr>
-</table>
+I am an engineering student specializing in **Data and Artificial Intelligence** at **ESILV** in Paris. My core focus lies in transforming raw data into robust pipelines and bridging the gap between local model development and production environments.
+
+**Education:** ESILV (Data & AI Major). Previously attended Hanyang University (Seoul) and completed a Physics & Chemistry Preparatory Class.<br>
+**Availability:** Currently seeking a 6-month internship in **Data Engineering or Machine Learning Engineering** starting **April 2027**.<br>
+**Languages:** French (Native), English.
+
+<a href="https://thanh-poth.github.io/Thanh-Poth/"><img src="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/aquarium.svg" width="100%" alt="Animated ASCII ocean: each animal is one of my repositories. Click to open the interactive version." /></a>
 
 ---
 
@@ -131,6 +115,6 @@ When I am not configuring containers or optimizing pipelines, I maintain an acti
 | TypeScript / JavaScript / C / C++ / Rust / Go / Java | shark |
 | Jupyter Notebook and anything else | sea turtle |
 
-The longer the animal, the more code in the repo. Its colour bands show the language mix. ★ marks the featured projects above.
+The longer the animal, the more code in the repo. Click the ocean to open the [interactive version](https://thanh-poth.github.io/Thanh-Poth/): hover an animal to see its project, click it to open the repository.
 
 </details>
