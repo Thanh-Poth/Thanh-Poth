@@ -78,9 +78,25 @@ class SceneTest(unittest.TestCase):
 
     def test_animals_stay_in_the_scene(self):
         for f in self.fish.values():
-            for y in (f.y0, f.y1):
+            for _, _, y, _ in f.path:
                 self.assertGreaterEqual(y, 0)
-                self.assertLessEqual(y + f.height, self.cfg.height)
+                self.assertLessEqual(y + f.height, self.cfg.height + 0.5)
+
+    def test_paths_curve_and_heading_follows(self):
+        import math
+        for f in self.fish.values():
+            pcts = [p[0] for p in f.path]
+            self.assertEqual((pcts[0], pcts[-1]), (0.0, 100.0))
+            self.assertEqual(pcts, sorted(pcts))
+            ys = [p[2] for p in f.path]
+            straight = [f.y0 + (f.y1 - f.y0) * i / (len(ys) - 1) for i in range(len(ys))]
+            self.assertGreater(max(abs(a - b) for a, b in zip(ys, straight)), 5, f.repo.name)
+            headings = [p[3] for p in f.path]
+            self.assertGreater(max(headings) - min(headings), 3, f.repo.name)  # it banks
+            # heading points along the path between two samples
+            _, x0, y0, _ = f.path[10]
+            _, x2, y2, a1 = f.path[12]
+            self.assertAlmostEqual(math.degrees(math.atan((y2 - y0) / (x2 - x0))), f.path[11][3], delta=0.5)
 
 
 class RenderTest(unittest.TestCase):

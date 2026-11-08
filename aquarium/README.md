@@ -30,7 +30,7 @@ The silhouettes come from [assets/silhouettes.png](assets/silhouettes.png) (top-
    - fully inside → the species texture (`:` ray, `=` hammerhead, `#` shark, hexagons for the turtle);
    - on the outline → `/ \ ( ) _ -`, chosen from the direction of the edge;
    - thin parts (the ray's tail) → `-` or `|`.
-3. `render.py` stacks the frames in the SVG and shows one at a time with CSS, while the whole animal crosses the scene on a slightly diagonal path.
+3. `render.py` stacks the frames in the SVG and shows one at a time with CSS, while the whole animal crosses the scene on a curved path: smooth wandering (species-specific amplitude and number of turns), the body banking along the tangent, and a speed that surges and glides.
 
 To use your own drawings: replace the image, update `SHAPES` in the tool (position and rotation of each silhouette), run it again, and add the species to `species.py`.
 

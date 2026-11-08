@@ -41,9 +41,13 @@ def _sprite(lines: list[str], fs: float) -> str:
 def _fish_svg(i: int, f: Fish, cfg: Config) -> tuple[str, str]:
     """Return (keyframes, element) for one animal."""
     w, h = f.width, f.height
-    start_x, end_x = (-w - 80, cfg.width + 80) if f.facing_right else (cfg.width + 80, -w - 80)
-    keyframes = (f"@keyframes s{i}{{from{{transform:translate({_num(start_x)}px,{_num(f.y0)}px)}}"
-                 f"to{{transform:translate({_num(end_x)}px,{_num(f.y1)}px)}}}}")
+    # One keyframe per path sample. The rotation pivots on the centre of the body:
+    # translate(centre) rotate(heading) translate(-half size).
+    steps = "".join(
+        f"{_num(pct)}%{{transform:translate({_num(x + w / 2)}px,{_num(y + h / 2)}px) "
+        f"rotate({_num(a)}deg) translate({_num(-w / 2)}px,{_num(-h / 2)}px)}}"
+        for pct, x, y, a in f.path)
+    keyframes = f"@keyframes s{i}{{{steps}}}"
 
     n, period = len(f.frames), f.spec.period
     frames = "".join(
@@ -66,8 +70,7 @@ def _fish_svg(i: int, f: Fish, cfg: Config) -> tuple[str, str]:
           f'animation-delay:{_num(f.delay)}s" transform="translate({_num(f.rest_x)},{_num(f.y0)})">'
           f'<title>{name}</title>'
           f'<g class="bob" style="animation-duration:{_num(f.bob_duration)}s">'
-          f'<g transform="rotate({_num(f.angle)} {_num(w / 2)} {_num(h / 2)})">'
-          f'{shadow}<g class="body">{frames}</g></g>'
+          f'{shadow}<g class="body">{frames}</g>'
           f'<rect class="hit" width="{_num(w)}" height="{_num(h)}"/>{label}</g></g></a>')
     return keyframes, el
 

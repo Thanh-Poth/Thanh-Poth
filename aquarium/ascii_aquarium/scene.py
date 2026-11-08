@@ -79,8 +79,9 @@ class Fish:
     frames: list[list[str]]
     font_size: float
     y0: float = 0.0           # lane at the entry side
-    y1: float = 0.0           # lane at the exit side (slightly diagonal crossing)
-    angle: float = 0.0        # degrees, matches the diagonal
+    y1: float = 0.0           # lane at the exit side
+    # Sampled swim path: (time %, x, y, heading in degrees) for the top-left corner.
+    path: list[tuple[float, float, float, float]] = field(default_factory=list)
     rest_x: float = 0.0       # position used when animations are off
     duration: float = 30.0
     delay: float = 0.0
@@ -142,18 +143,67 @@ def _layout(fish: list[Fish], cfg: Config) -> None:
         f.y0 = max(top, min(top + span, centre))
         drift = (rand(cfg.seed, f.repo.name, "drift") - 0.5) * 0.16 * cfg.width
         f.y1 = max(top, min(top + span, f.y0 + drift))
-        dx = cfg.width + f.width + 120
-        a = math.degrees(math.atan2(f.y1 - f.y0, dx))
-        f.angle = round(a if f.facing_right else -a, 2)
+        length = _swim_path(f, cfg, top, top + span)
 
         speed = 30.0 * f.spec.speed * (0.8 + 0.4 * rand(cfg.seed, f.repo.name, "speed"))
         speed *= 1.25 - 0.5 * min(1.0, f.width / 300)  # big animals cruise slower
-        f.duration = round(dx / speed, 2)
+        f.duration = round(length / speed, 2)
         # Golden-ratio phases: neighbouring lanes start far apart horizontally.
         phase = (i * 0.618034 + 0.1 * rand(cfg.seed, f.repo.name, "phase")) % 1.0
         f.delay = -round(phase * f.duration, 2)
         f.rest_x = round(rand(cfg.seed, f.repo.name, "rest") * (cfg.width - f.width), 1)
         f.bob_duration = round(3 + 3 * rand(cfg.seed, f.repo.name, "bob"), 2)
+
+
+PATH_SAMPLES = 48
+
+
+def _swim_path(f: Fish, cfg: Config, y_min: float, y_max: float) -> float:
+    """Smooth wandering path across the scene; returns its length in px.
+
+    y = drift from y0 to y1 + two superposed sine waves (species-specific amplitude and
+    number of curves). The heading follows the tangent, and the timing follows the arc
+    length divided by a surging speed, so the animal glides, accelerates and banks.
+    """
+    key = f.repo.name
+    sp = f.spec
+    x_in, x_out = (-f.width - 80, cfg.width + 80) if f.facing_right else (cfg.width + 80, -f.width - 80)
+    amp = sp.wander * cfg.height * (0.7 + 0.6 * rand(cfg.seed, key, "amp"))
+    k1 = sp.curves * (0.8 + 0.4 * rand(cfg.seed, key, "k1"))
+    k2 = k1 * (2.1 + 0.6 * rand(cfg.seed, key, "k2"))
+    p1, p2 = (2 * math.pi * rand(cfg.seed, key, n) for n in ("p1", "p2"))
+
+    ss = [i / (PATH_SAMPLES - 1) for i in range(PATH_SAMPLES)]
+    dev = [amp * (0.72 * math.sin(2 * math.pi * k1 * s + p1) + 0.28 * math.sin(2 * math.pi * k2 * s + p2))
+           for s in ss]
+    # Keep the whole curve inside the scene: shrink it only if the scene is too short,
+    # then push the lane inwards (never flatten the curve against an edge).
+    hi, lo = max(dev), min(dev)
+    shrink = min(1.0, (y_max - y_min) / max(hi - lo, 1e-9))
+    hi, lo = hi * shrink, lo * shrink
+    f.y0 = min(max(f.y0, y_min - lo), y_max - hi)
+    f.y1 = min(max(f.y1, y_min - lo), y_max - hi)
+    xs = [x_in + (x_out - x_in) * s for s in ss]
+    ys = [f.y0 + (f.y1 - f.y0) * s + d * shrink for s, d in zip(ss, dev)]
+
+    # Time spent on each segment = length / local speed (speed surges along the way).
+    pw, pp = 2 + 3 * rand(cfg.seed, key, "pw"), 2 * math.pi * rand(cfg.seed, key, "pp")
+    times, lengths = [0.0], []
+    for i in range(1, PATH_SAMPLES):
+        seg = math.hypot(xs[i] - xs[i - 1], ys[i] - ys[i - 1])
+        v = 1 + sp.surge * math.sin(2 * math.pi * pw * ss[i] + pp)
+        lengths.append(seg)
+        times.append(times[-1] + seg / v)
+    total = times[-1]
+
+    f.path = []
+    for i in range(PATH_SAMPLES):
+        j0, j1 = max(0, i - 1), min(PATH_SAMPLES - 1, i + 1)
+        dx, dy = xs[j1] - xs[j0], ys[j1] - ys[j0]
+        heading = math.degrees(math.atan(dy / dx)) if dx else 0.0
+        f.path.append((round(100 * times[i] / total, 3), round(xs[i], 1), round(ys[i], 1),
+                       round(heading, 2)))
+    return sum(lengths)
 
 
 __all__ = ["Config", "Fish", "build", "select", "rand",
