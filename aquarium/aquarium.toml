@@ -1,7 +1,7 @@
-# ASCII aquarium config: each repository becomes a fish.
+# ASCII ocean config: each repository becomes a sea animal seen from above.
 user = "Thanh-Poth"
 
-# Repos left out of the tank (the profile repo itself is always excluded).
+# Repos left out (the profile repo itself is always excluded).
 exclude = []
 
 include_forks = false
@@ -9,11 +9,13 @@ include_archived = true
 max_fish = 18
 
 width = 1000
-height = 520
+height = 560
 
-# Size tiers from the bytes of code GitHub counts per repo (after size_weights).
-small_bytes = 15000     # below -> small fish
-large_bytes = 250000    # above -> large fish
+# Sprite length in characters, from the smallest to the largest repo (log scale).
+font_size = 9
+min_cols = 12
+max_cols = 38
+frames = 8              # animation frames per swim cycle
 
 show_labels = true
 highlight = ["Mushroom_Finder", "Tick-Level_Financial_Data_Processing", "RAG"]   # featured in the README
@@ -23,16 +25,16 @@ seed = "aquarium"       # change it to reshuffle lanes and directions
 [size_weights]
 "Jupyter Notebook" = 0.25
 
-# Override the main-language -> species table, e.g.
+# Override the main-language -> species table (ray, hammerhead, shark, turtle), e.g.
 # [species]
-# "Jupyter Notebook" = "jellyfish"
+# "Jupyter Notebook" = "ray"
 
 # Combination rules, checked before the main language. Uncomment to replace the defaults:
 # [[combos]]
-# all = ["Python", "JavaScript|TypeScript"]   # full-stack -> manta ray
-# species = "ray"
+# all = ["Python", "JavaScript|TypeScript"]   # full-stack -> hammerhead
+# species = "hammerhead"
 # min_share = 0.10
 # [[combos]]
-# all = ["Python", "Dockerfile"]              # containerised -> whale
-# species = "whale"
+# all = ["Python", "Dockerfile"]              # containerised -> hammerhead
+# species = "hammerhead"
 # min_share = 0.0

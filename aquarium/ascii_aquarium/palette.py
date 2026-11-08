@@ -49,7 +49,7 @@ def luminance(hex_color: str) -> float:
     return 0.2126 * r + 0.7152 * g + 0.0722 * b
 
 
-def readable(hex_color: str, min_luminance: float = 0.28) -> str:
+def readable(hex_color: str, min_luminance: float = 0.40) -> str:
     """Mix a colour towards white until it stands out on a dark-blue background."""
     rgb = _rgb(hex_color)
     for _ in range(20):

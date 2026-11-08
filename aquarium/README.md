@@ -1,52 +1,56 @@
 # ascii-aquarium
 
-Turns a GitHub profile into an **animated ASCII aquarium** (a single SVG file). Each repository is one fish:
+Turns a GitHub profile into an **animated ASCII ocean seen from above** (a single SVG file). Each repository is one sea animal:
 
-| Fish property | Comes from |
+| Property | Comes from |
 |---|---|
-| **Species** | the languages of the repo: combination rules first, then the main language |
+| **Species** | the repo's languages: combination rules first, then the main language |
 | **Colour bands** | the language mix, each band sized by that language's share of the code |
-| **Size** | the bytes of code (S / M / L drawing plus continuous font scaling) |
-| **Lane, direction, speed** | a hash of the repo name, so the tank stays stable between runs |
+| **Size** | the bytes of code (sprite length grows with the log of the size) |
+| **Swimming** | frame-by-frame ASCII: rays flap their wings, sharks sway their tails, turtles paddle |
+| **Path, direction, speed** | a hash of the repo name, so the scene stays stable between runs |
 
-No dependencies: Python 3.11+ standard library only.
+The library itself only needs the Python 3.11+ standard library.
 
 ## Species
 
-| Rule | Species | Look (small → medium) |
-|---|---|---|
-| Python + JavaScript/TypeScript (≥ 10 % each) | manta ray | `~-<:>` · `~~<  °  >` |
-| Python + Dockerfile | whale | `}=__°)` |
-| Python | eel | `~~~~~~~~=°>` |
-| Jupyter Notebook | pufferfish | `>(°)` |
-| TypeScript | tang | `}))°>` |
-| JavaScript | angelfish | `>( °>` |
-| C, C++, Rust, Go, Java | swordfish | `><((((°>======` |
-| Dockerfile, HCL | whale | `}=__°)` |
-| Shell, PowerShell, Batch, Makefile | crab (walks on the sand) | `v(°°)v` |
-| HTML, CSS, SCSS, Vue | jellyfish (drifts) | `(    )` |
-| anything else | goldfish | `><(((°>` |
+The silhouettes come from [assets/silhouettes.png](assets/silhouettes.png) (top-down view).
 
-All drawings face right and are mirrored automatically for fish swimming left.
+| Rule | Animal | Motion |
+|---|---|---|
+| Python + JavaScript/TypeScript (≥ 10 % each) | hammerhead shark | tail sway |
+| Python + Dockerfile, Dockerfile, Shell, HCL | hammerhead shark | tail sway |
+| Python, R, Julia | manta ray (3 silhouette variants) | wing flap |
+| TypeScript, JavaScript, C, C++, Rust, Go, Java | shark | tail sway |
+| Jupyter Notebook, anything else | sea turtle (hexagon shell) | flipper paddle |
+
+## How the ASCII is made
+
+1. `tools/extract_silhouettes.py` (needs Pillow, NumPy and SciPy, run once) cuts each silhouette out of the image, rotates it so the head points right, and stores it as a run-length mask in `ascii_aquarium/silhouettes.txt`.
+2. For each animation frame, `sprite.py` deforms the mask (wing span shrinking, a travelling wave along the body, flippers sweeping), then samples every character cell 4 × 6 times:
+   - fully inside → the species texture (`:` ray, `=` hammerhead, `#` shark, hexagons for the turtle);
+   - on the outline → `/ \ ( ) _ -`, chosen from the direction of the edge;
+   - thin parts (the ray's tail) → `-` or `|`.
+3. `render.py` stacks the frames in the SVG and shows one at a time with CSS, while the whole animal crosses the scene on a slightly diagonal path.
+
+To use your own drawings: replace the image, update `SHAPES` in the tool (position and rotation of each silhouette), run it again, and add the species to `species.py`.
 
 ## Usage
 
 ```bash
 python -m ascii_aquarium --config aquarium.toml --out dist/aquarium.svg
-python -m ascii_aquarium --user octocat --out tank.svg            # no config file
+python -m ascii_aquarium --user octocat --out ocean.svg             # no config file
 python -m ascii_aquarium --dump-json repos.json                     # save the API data
-python -m ascii_aquarium --from-json repos.json --out tank.svg      # render offline
+python -m ascii_aquarium --from-json repos.json --out ocean.svg     # render offline
 ```
 
 Set `GITHUB_TOKEN` to avoid the API rate limit (60 requests per hour without a token; the tool makes one request per repository).
 
-All the options are in [aquarium.toml](aquarium.toml): excluded repos, number of fish, size thresholds, language weights, species overrides, combination rules and highlighted repos.
+All the options are in [aquarium.toml](aquarium.toml): excluded repos, number of animals, sprite sizes, frames per cycle, language weights, species overrides, combination rules and highlighted repos.
 
 ## How it animates on GitHub
 
-GitHub removes CSS and JavaScript from README files, but an SVG shown through `<img>` keeps its own `<style>` block.
-Every fish is a `<g>` with its own `@keyframes` (a horizontal crossing) and an inner group that bobs up and down.
-Bubbles, seaweed and light rays are CSS animations too. With `prefers-reduced-motion`, everything stops and each fish stays at a fixed position.
+GitHub removes CSS and JavaScript from README files, but an SVG shown through `<img>` keeps its own `<style>` block. With `prefers-reduced-motion`, everything stops and each animal stays still on its first frame.
 
 ## Tests
 

@@ -1,4 +1,4 @@
-"""Turn repositories into fish: species, size, colours, lane and speed."""
+"""Turn repositories into animals: species, size, colours, path and speed."""
 from __future__ import annotations
 
 import hashlib
@@ -8,13 +8,14 @@ from dataclasses import dataclass, field
 
 from .github import Repo
 from .palette import language_color
-from .species import (BOTTOM_DWELLERS, DEFAULT_COMBOS, DEFAULT_LANGUAGE_SPECIES, DRIFTERS, FALLBACK_SPECIES,
-                      SIZES, art)
+from .species import (DEFAULT_COMBOS, DEFAULT_LANGUAGE_SPECIES, FALLBACK_SPECIES, SPECIES,
+                      Species, mirror)
+from .sprite import frames as make_frames
 
 CHAR_W = 0.6     # monospace glyph width, in em
 LINE_H = 1.12    # line height, in em
-TOP_MARGIN = 46  # room for the title bar
-SAND_H = 46
+TOP_MARGIN = 40  # room for the title bar
+BOTTOM_MARGIN = 22
 
 
 @dataclass
@@ -25,10 +26,11 @@ class Config:
     include_archived: bool = True
     max_fish: int = 18
     width: int = 1000
-    height: int = 520
-    # code bytes thresholds: < small -> S, < large -> M, else L
-    small_bytes: int = 15_000
-    large_bytes: int = 250_000
+    height: int = 560
+    font_size: float = 8.0       # px; sprites are drawn with this many pixels per character
+    min_cols: int = 12           # sprite length (characters) of the smallest repo...
+    max_cols: int = 38           # ...and of the largest
+    frames: int = 8              # animation frames per swim cycle
     species: dict[str, str] = field(default_factory=dict)  # language -> species overrides
     # Bytes of these languages count less for size (notebooks embed outputs/images).
     size_weights: dict[str, float] = field(default_factory=lambda: {"Jupyter Notebook": 0.25})
@@ -54,54 +56,50 @@ class Config:
         share = {lang: n / total for lang, n in repo.languages.items()}
         for rule in DEFAULT_COMBOS if self.combos is None else self.combos:
             floor = rule.get("min_share", 0.0)
-            if all(any(share.get(alt, -1) >= floor and alt in share for alt in group.split("|"))
+            if all(any(alt in share and share[alt] >= floor for alt in group.split("|"))
                    for group in rule["all"]):
                 return rule["species"]
         mapping = {**DEFAULT_LANGUAGE_SPECIES, **self.species}
-        return mapping.get(repo.primary_language or "", FALLBACK_SPECIES)
+        name = mapping.get(repo.primary_language or "", FALLBACK_SPECIES)
+        return name if name in SPECIES else FALLBACK_SPECIES
+
+    def cols_for(self, size_bytes: int) -> int:
+        """Sprite length grows with log(code size): 1 kB -> min_cols, ~3 MB -> max_cols."""
+        t = (math.log10(max(size_bytes, 1000)) - 3) / 3.5
+        return round(self.min_cols + (self.max_cols - self.min_cols) * max(0.0, min(1.0, t)))
 
 
 @dataclass
 class Fish:
     repo: Repo
     species: str
-    size: str
+    spec: Species
+    mask: str
     facing_right: bool
-    lines: list[str]
+    frames: list[list[str]]
     font_size: float
     stripes: list[tuple[float, float, str]]  # (start offset, end offset, colour), head first
-    y: float = 0.0
-    rest_x: float = 0.0
+    y0: float = 0.0           # lane at the entry side
+    y1: float = 0.0           # lane at the exit side (slightly diagonal crossing)
+    angle: float = 0.0        # degrees, matches the diagonal
+    rest_x: float = 0.0       # position used when animations are off
     duration: float = 30.0
     delay: float = 0.0
     bob_duration: float = 3.0
 
     @property
     def width(self) -> float:
-        return max(len(l) for l in self.lines) * CHAR_W * self.font_size
+        return max(len(l) for l in self.frames[0]) * CHAR_W * self.font_size
 
     @property
     def height(self) -> float:
-        return len(self.lines) * LINE_H * self.font_size
+        return len(self.frames[0]) * LINE_H * self.font_size
 
 
 def rand(seed: str, *parts: object) -> float:
     """Deterministic float in [0, 1) so the tank looks the same between runs."""
     h = hashlib.sha256("|".join(map(str, (seed, *parts))).encode()).digest()
     return int.from_bytes(h[:8], "big") / 2**64
-
-
-def size_tier(code_bytes: int, cfg: Config) -> str:
-    if code_bytes < cfg.small_bytes:
-        return "S"
-    if code_bytes < cfg.large_bytes:
-        return "M"
-    return "L"
-
-
-def font_size(code_bytes: int) -> float:
-    """Continuous scaling inside a tier: 1 kB -> 13px, 100 kB -> ~18px, 1 MB -> ~21px."""
-    return max(13.0, min(24.0, 13 + 2.6 * (math.log10(max(code_bytes, 1000)) - 3)))
 
 
 def stripes(languages: dict[str, int], max_colors: int = 4) -> list[tuple[float, float, str]]:
@@ -132,54 +130,48 @@ def select(repos: list[Repo], cfg: Config) -> list[Repo]:
 
 
 def build(repos: list[Repo], cfg: Config) -> list[Fish]:
+    """Biggest first, so smaller animals are drawn on top of larger ones."""
     fish: list[Fish] = []
     for r in select(repos, cfg):
-        species = cfg.species_for(r)
-        n = cfg.size_bytes(r)
-        size = size_tier(n, cfg)
+        name = cfg.species_for(r)
+        spec = SPECIES[name]
+        mask = spec.masks[int(rand(cfg.seed, r.name, "variant") * len(spec.masks))]
+        cols = round(cfg.cols_for(cfg.size_bytes(r)) * spec.length)
         right = rand(cfg.seed, r.name, "dir") < 0.5
-        fish.append(Fish(
-            repo=r, species=species, size=size, facing_right=right,
-            lines=art(species, size, right), font_size=font_size(n),
-            stripes=stripes(r.languages),
-        ))
+        fr = make_frames(mask, spec.motion, cols, cfg.frames, spec.texture)
+        if not right:
+            fr = [mirror(f) for f in fr]
+        fish.append(Fish(repo=r, species=name, spec=spec, mask=mask, facing_right=right,
+                         frames=fr, font_size=cfg.font_size, stripes=stripes(r.languages)))
     _layout(fish, cfg)
     return fish
 
 
 def _layout(fish: list[Fish], cfg: Config) -> None:
-    sand_top = cfg.height - SAND_H
-    label = 14 if cfg.show_labels else 0
-    swimmers = [f for f in fish if f.species not in BOTTOM_DWELLERS]
-    # Shuffle lanes deterministically so big fish are not all stacked together.
-    swimmers.sort(key=lambda f: rand(cfg.seed, f.repo.name, "lane"))
-    band_top, band_bottom = TOP_MARGIN, sand_top - 10
-    n = max(len(swimmers), 1)
-    for i, f in enumerate(swimmers):
-        centre = band_top + (i + 0.5) * (band_bottom - band_top) / n
-        y = centre - (f.height + label) / 2
-        f.y = max(band_top, min(band_bottom - f.height - label, y))
-    for f in fish:
-        if f.species in BOTTOM_DWELLERS:
-            f.y = sand_top - f.height - label + 8
+    label = 12 if cfg.show_labels else 0
+    top, bottom = TOP_MARGIN, cfg.height - BOTTOM_MARGIN
+    # Lanes in a deterministic shuffled order so big animals are not stacked together.
+    order = sorted(fish, key=lambda f: rand(cfg.seed, f.repo.name, "lane"))
+    n = max(len(order), 1)
+    for i, f in enumerate(order):
+        span = bottom - top - f.height - label
+        centre = top + (i + 0.5) * (bottom - top) / n - (f.height + label) / 2
+        f.y0 = max(top, min(top + span, centre))
+        drift = (rand(cfg.seed, f.repo.name, "drift") - 0.5) * 0.16 * cfg.width
+        f.y1 = max(top, min(top + span, f.y0 + drift))
+        dx = cfg.width + f.width + 120
+        a = math.degrees(math.atan2(f.y1 - f.y0, dx))
+        f.angle = round(a if f.facing_right else -a, 2)
 
-    # Golden-ratio phases: neighbouring lanes start far apart horizontally.
-    order = {id(f): i for i, f in enumerate(swimmers)}
-    for f in fish:
-        u = rand(cfg.seed, f.repo.name, "speed")
-        speed = {"S": 46.0, "M": 32.0, "L": 22.0}[f.size] * (0.8 + 0.4 * u)
-        if f.species in DRIFTERS:
-            speed *= 0.45
-        if f.species in BOTTOM_DWELLERS:
-            speed *= 0.6
-        distance = cfg.width + f.width + 120
-        f.duration = round(distance / speed, 2)
-        k = order.get(id(f), len(order) + fish.index(f))
-        phase = (k * 0.618034 + 0.1 * rand(cfg.seed, f.repo.name, "phase")) % 1.0
+        speed = 30.0 * f.spec.speed * (0.8 + 0.4 * rand(cfg.seed, f.repo.name, "speed"))
+        speed *= 1.25 - 0.5 * min(1.0, f.width / 300)  # big animals cruise slower
+        f.duration = round(dx / speed, 2)
+        # Golden-ratio phases: neighbouring lanes start far apart horizontally.
+        phase = (i * 0.618034 + 0.1 * rand(cfg.seed, f.repo.name, "phase")) % 1.0
         f.delay = -round(phase * f.duration, 2)
         f.rest_x = round(rand(cfg.seed, f.repo.name, "rest") * (cfg.width - f.width), 1)
-        f.bob_duration = round(2.4 + 2.4 * rand(cfg.seed, f.repo.name, "bob"), 2)
+        f.bob_duration = round(3 + 3 * rand(cfg.seed, f.repo.name, "bob"), 2)
 
 
-__all__ = ["Config", "Fish", "build", "select", "size_tier", "stripes", "rand", "SIZES",
-           "CHAR_W", "LINE_H", "SAND_H", "TOP_MARGIN"]
+__all__ = ["Config", "Fish", "build", "select", "stripes", "rand",
+           "CHAR_W", "LINE_H", "TOP_MARGIN", "BOTTOM_MARGIN"]

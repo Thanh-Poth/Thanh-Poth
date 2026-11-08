@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/aquarium.svg" width="100%" alt="Animated ASCII aquarium: each fish is one of my repositories" />
+<img src="https://raw.githubusercontent.com/Thanh-Poth/Thanh-Poth/output/aquarium.svg" width="100%" alt="Animated ASCII ocean seen from above: each animal is one of my repositories" />
 
-<sub>Each fish is one of my repositories: its <b>species</b> comes from the languages used, its <b>colours</b> from the language mix, its <b>size</b> from the amount of code. Regenerated daily by a <a href="aquarium/">small Python library</a> I wrote for this.</sub>
+<sub>Each animal is one of my repositories: its <b>species</b> comes from the languages used, its <b>colours</b> from the language mix, its <b>size</b> from the amount of code. Regenerated daily by a <a href="aquarium/">small Python library</a> I wrote for this.</sub>
 
 ## Thanh Son Potherat
 
@@ -122,21 +122,15 @@ When I am not configuring containers or optimizing pipelines, I maintain an acti
 </div>
 
 <details>
-<summary><b>How to read the aquarium</b></summary>
+<summary><b>How to read the ocean</b></summary>
 
-| Languages of the repo | Fish |
+| Languages of the repo | Animal |
 |---|---|
-| Python + JavaScript/TypeScript (full-stack) | manta ray `~~<  °  >` |
-| Python + Dockerfile (containerised) | whale `}=__°)` |
-| Python | eel `~~~~~~~~=°>` |
-| Jupyter Notebook | pufferfish `>(  ° )` |
-| TypeScript | tang `}(  ))°>` |
-| JavaScript | angelfish `>( °>` |
-| C / C++ / Rust / Go / Java | swordfish `><((((°>======` |
-| Shell / PowerShell | crab, walking on the sand |
-| HTML / CSS | jellyfish, drifting |
-| anything else | goldfish `><(((°>` |
+| Python + JavaScript/TypeScript (full-stack) or Python + Docker | hammerhead shark |
+| Python | manta ray |
+| TypeScript / JavaScript / C / C++ / Rust / Go / Java | shark |
+| Jupyter Notebook and anything else | sea turtle |
 
-Small, medium and large repos get a small, medium or large drawing. ★ marks the featured projects above.
+The longer the animal, the more code in the repo. Its colour bands show the language mix. ★ marks the featured projects above.
 
 </details>

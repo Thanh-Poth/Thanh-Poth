@@ -1,9 +1,10 @@
-"""ascii_aquarium: turn a GitHub profile into an animated ASCII aquarium (SVG).
+"""ascii_aquarium: turn a GitHub profile into an animated ASCII ocean (SVG).
 
-Each repository becomes a fish:
-  * species  <- main language   (see species.DEFAULT_LANGUAGE_SPECIES)
+Each repository becomes a sea animal seen from above (silhouettes in assets/):
+  * species  <- languages       (combination rules, then the main language)
   * colours  <- language mix    (bands proportional to bytes per language)
-  * size     <- amount of code  (S / M / L art + continuous font scaling)
+  * size     <- amount of code  (sprite length grows with log(bytes))
+  * swimming <- frame-by-frame  (rays flap, sharks sway, turtles paddle)
 """
 from .github import Repo, fetch_repos
 from .render import render

@@ -17,3 +17,6 @@ ascii-aquarium = "ascii_aquarium.cli:main"
 
 [tool.setuptools]
 packages = ["ascii_aquarium"]
+
+[tool.setuptools.package-data]
+ascii_aquarium = ["silhouettes.txt"]

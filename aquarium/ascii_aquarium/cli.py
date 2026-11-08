@@ -35,7 +35,7 @@ def main(argv: list[str] | None = None) -> int:
     with open(args.out, "w", encoding="utf-8") as f:
         f.write(render(fish, cfg))
     for fi in fish:
-        print(f"{fi.repo.name:40} {fi.species:10} {fi.size}  {cfg.size_bytes(fi.repo):>9} B  "
-              f"{fi.repo.primary_language}")
+        print(f"{fi.repo.name:42} {fi.species:10} {fi.mask:10} {len(fi.frames[0][0]):>3} cols "
+              f"{cfg.size_bytes(fi.repo):>9} B  {fi.repo.primary_language}")
     print(f"wrote {args.out} ({len(fish)} fish)")
     return 0
