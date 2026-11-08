@@ -1,0 +1,38 @@
+# ASCII aquarium config: each repository becomes a fish.
+user = "Thanh-Poth"
+
+# Repos left out of the tank (the profile repo itself is always excluded).
+exclude = []
+
+include_forks = false
+include_archived = true
+max_fish = 18
+
+width = 1000
+height = 520
+
+# Size tiers from the bytes of code GitHub counts per repo (after size_weights).
+small_bytes = 15000     # below -> small fish
+large_bytes = 250000    # above -> large fish
+
+show_labels = true
+highlight = ["Mushroom_Finder", "Tick-Level_Financial_Data_Processing", "RAG"]   # featured in the README
+seed = "aquarium"       # change it to reshuffle lanes and directions
+
+# Bytes of a language count less for size (notebooks embed outputs and images).
+[size_weights]
+"Jupyter Notebook" = 0.25
+
+# Override the main-language -> species table, e.g.
+# [species]
+# "Jupyter Notebook" = "jellyfish"
+
+# Combination rules, checked before the main language. Uncomment to replace the defaults:
+# [[combos]]
+# all = ["Python", "JavaScript|TypeScript"]   # full-stack -> manta ray
+# species = "ray"
+# min_share = 0.10
+# [[combos]]
+# all = ["Python", "Dockerfile"]              # containerised -> whale
+# species = "whale"
+# min_share = 0.0
